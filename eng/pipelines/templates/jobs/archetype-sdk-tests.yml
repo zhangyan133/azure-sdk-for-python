@@ -68,9 +68,14 @@ jobs:
       matrix: $[ ${{ parameters.Matrix }} ]
 
     variables:
-      skipComponentGovernanceDetection: true
-      ArmTemplateParameters: '@{}'
-      BuildTargetingStringValue: $[ coalesce(variables.BuildTargetingString, ${{ parameters.BuildTargetingString }}) ]
+      - template: ../variables/globals.yml
+
+      - name: skipComponentGovernanceDetection
+        value: true
+      - name: ArmTemplateParameters
+        value: '@{}'
+      - name: BuildTargetingStringValue
+        value: $[ coalesce(variables.BuildTargetingString, ${{ parameters.BuildTargetingString }}) ]
 
     timeoutInMinutes: ${{ parameters.TestTimeoutInMinutes }}
     continueOnError: false

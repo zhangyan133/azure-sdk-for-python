@@ -77,7 +77,7 @@ parameters:
   - name: AdditionalMatrixConfigs
     type: object
     default: []
-  - Name: MatrixFilters
+  - name: MatrixFilters
     type: object
     default: []
   - name: PlatformPreSteps
@@ -86,9 +86,6 @@ parameters:
   - name: PlatformPostSteps
     type: object
     default: []
-
-variables:
-  - template: ../variables/globals.yml
 
 stages:
 - ${{ each cloud in parameters.CloudConfig }}:
