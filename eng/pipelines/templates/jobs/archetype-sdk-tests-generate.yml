@@ -24,17 +24,24 @@ jobs:
       - ${{ if eq(config.GenerateVMJobs, 'true') }}:
         - pwsh: |
             Write-Host "DISPLAY NAME FILTER: $(displayNameFilter)"
+            Write-Host "EXTRA MATRIX FILTERS: ${{ parameters.MatrixFilters }}"
+            $extraFilters = ${{ join('","', parameters.MatrixFilters) }}
+            $filters ,"container=^$","SupportedClouds=^$|${{ parameters.CloudConfig.Cloud }}"
+            if ($extraFilters) {
+              $filters = $($extraFilters) + $filters
+            }
             eng/scripts/job-matrix/Create-JobMatrix.ps1 `
               -ConfigPath ${{ config.Path }} `
               -Selection ${{ config.Selection }} `
               -DisplayNameFilter "$(displayNameFilter)" `
-              -Filters "${{ join(',', parameters.MatrixFilters) }}","container=^$","SupportedClouds=^$|${{ parameters.CloudConfig.Cloud }}"
+              -Filters $filters
           name: generate_vm_job_matrix_${{ config.Name }}
           displayName: Generate VM Job Matrix
 
       - ${{ if eq(config.GenerateContainerJobs, 'true') }}:
         - pwsh: |
             Write-Host "DISPLAY NAME FILTER: $(displayNameFilter)"
+            Write-Host "EXTRA MATRIX FILTERS: ${{ parameters.MatrixFilters }}"
             eng/scripts/job-matrix/Create-JobMatrix.ps1 `
               -ConfigPath ${{ config.Path }} `
               -Selection ${{ config.Selection }} `
