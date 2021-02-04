@@ -26,7 +26,7 @@ jobs:
             $extraFilters = "${{ join('","', parameters.MatrixFilters) }}"
             $filters ,"container=^$","SupportedClouds=^$|${{ parameters.CloudConfig.Cloud }}"
             if ($extraFilters) { $filters = @($extraFilters) + $filters }
-            Write-Host "DISPLAY NAME FILTER: \"$(displayNameFilter)\"; FILTERS: \"$filters\""
+            Write-Host "DISPLAY NAME FILTER: `"$(displayNameFilter)`"; FILTERS: `"$filters`""
             eng/scripts/job-matrix/Create-JobMatrix.ps1 `
               -ConfigPath ${{ config.Path }} `
               -Selection ${{ config.Selection }} `
@@ -40,7 +40,7 @@ jobs:
             $extraFilters = "${{ join('","', parameters.MatrixFilters) }}"
             $filters ,"container=.*","SupportedClouds=^$|${{ parameters.CloudConfig.Cloud }}"
             if ($extraFilters) { $filters = @($extraFilters) + $filters }
-            Write-Host "DISPLAY NAME FILTER: \"$(displayNameFilter)\"; FILTERS: \"$filters\""
+            Write-Host "DISPLAY NAME FILTER: `"$(displayNameFilter)`"; FILTERS: `"$filters`""
             eng/scripts/job-matrix/Create-JobMatrix.ps1 `
               -ConfigPath ${{ config.Path }} `
               -Selection ${{ config.Selection }} `
