@@ -53,6 +53,9 @@ parameters:
   - name: Location
     type: string
     default: ''
+  - name: Clouds
+    type: string
+    default: 'Public'
   - name: CloudConfig
     type: object
     default:
