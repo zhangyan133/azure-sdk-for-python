@@ -6,7 +6,7 @@ stages:
       AllocateResourceGroup: false
       ServiceDirectory: eventhub
       MatrixFilters:
-        - PythonVersion=^(?!pypy3).*
+        - '"PythonVersion=^(?!pypy3).*"'
       EnvVars:
         AZURE_STORAGE_ACCOUNT: $(python-eh-livetest-event-hub-storage-account)
         AZURE_STORAGE_ACCESS_KEY: $(python-eh-livetest-event-hub-storage-access-key)
