@@ -9,7 +9,7 @@ parameters:
   default: []
 - name: MatrixFilters
   type: object
-  default: '""'
+  default: []
 
 jobs:
 - job: generate_matrix
