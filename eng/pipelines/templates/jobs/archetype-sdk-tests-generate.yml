@@ -25,10 +25,10 @@ jobs:
         - pwsh: |
             Write-Host "DISPLAY NAME FILTER: $(displayNameFilter)"
             Write-Host "EXTRA MATRIX FILTERS: ${{ parameters.MatrixFilters }}"
-            $extraFilters = ${{ join('","', parameters.MatrixFilters) }}
+            $extraFilters = "${{ join(',', parameters.MatrixFilters) }}"
             $filters ,"container=^$","SupportedClouds=^$|${{ parameters.CloudConfig.Cloud }}"
             if ($extraFilters) {
-              $filters = $($extraFilters) + $filters
+              $filters = @($extraFilters) + $filters
             }
             eng/scripts/job-matrix/Create-JobMatrix.ps1 `
               -ConfigPath ${{ config.Path }} `
