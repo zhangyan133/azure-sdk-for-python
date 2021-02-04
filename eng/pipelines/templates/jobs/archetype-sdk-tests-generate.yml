@@ -24,7 +24,8 @@ jobs:
       - ${{ if eq(config.GenerateVMJobs, 'true') }}:
         - pwsh: |
             Write-Host "DISPLAY NAME FILTER: $(displayNameFilter)"
-            Write-Host "EXTRA MATRIX FILTERS: ${{ parameters.MatrixFilters }}"
+            $extraFilters = "${{ join(',', parameters.MatrixFilters) }}"
+            Write-Host "EXTRA MATRIX FILTERS: $extraFilters"
             $filters ,"container=^$","SupportedClouds=^$|${{ parameters.CloudConfig.Cloud }}"
             if ($extraFilters) {
               $filters = @($extraFilters) + $filters
