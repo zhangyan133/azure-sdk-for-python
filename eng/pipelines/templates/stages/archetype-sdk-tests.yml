@@ -132,8 +132,8 @@ stages:
               Location: ${{ coalesce(parameters.Location, cloud.value.Location) }}
               Cloud: ${{ cloud.key }}
 
-  - stage: Publish_Coverage_${{ parameters.JobName }}
-    jobs:
-    - template: ../jobs/publish-coverage.yml
-      parameters:
-        ServiceDirectory: ${{ parameters.ServiceDirectory }}
+- stage: Publish_Coverage_${{ parameters.JobName }}
+  jobs:
+  - template: ../jobs/publish-coverage.yml
+    parameters:
+      ServiceDirectory: ${{ parameters.ServiceDirectory }}
