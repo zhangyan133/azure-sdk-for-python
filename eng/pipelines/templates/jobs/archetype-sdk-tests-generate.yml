@@ -23,13 +23,10 @@ jobs:
     - ${{ each config in parameters.MatrixConfigs }}:
       - ${{ if eq(config.GenerateVMJobs, 'true') }}:
         - pwsh: |
-            Write-Host "DISPLAY NAME FILTER: $(displayNameFilter)"
             $extraFilters = "${{ join('","', parameters.MatrixFilters) }}"
-            Write-Host "EXTRA MATRIX FILTERS: $extraFilters"
             $filters ,"container=^$","SupportedClouds=^$|${{ parameters.CloudConfig.Cloud }}"
-            if ($extraFilters) {
-              $filters = @($extraFilters) + $filters
-            }
+            if ($extraFilters) { $filters = @($extraFilters) + $filters }
+            Write-Host "DISPLAY NAME FILTER: \"$(displayNameFilter)\"; FILTERS: \"$filters\""
             eng/scripts/job-matrix/Create-JobMatrix.ps1 `
               -ConfigPath ${{ config.Path }} `
               -Selection ${{ config.Selection }} `
@@ -40,13 +37,15 @@ jobs:
 
       - ${{ if eq(config.GenerateContainerJobs, 'true') }}:
         - pwsh: |
-            Write-Host "DISPLAY NAME FILTER: $(displayNameFilter)"
-            Write-Host "EXTRA MATRIX FILTERS: ${{ parameters.MatrixFilters }}"
+            $extraFilters = "${{ join('","', parameters.MatrixFilters) }}"
+            $filters ,"container=.*","SupportedClouds=^$|${{ parameters.CloudConfig.Cloud }}"
+            if ($extraFilters) { $filters = @($extraFilters) + $filters }
+            Write-Host "DISPLAY NAME FILTER: \"$(displayNameFilter)\"; FILTERS: \"$filters\""
             eng/scripts/job-matrix/Create-JobMatrix.ps1 `
               -ConfigPath ${{ config.Path }} `
               -Selection ${{ config.Selection }} `
               -DisplayNameFilter "$(displayNameFilter)" `
-              -Filters "${{ join(',', parameters.MatrixFilters) }}","container=.*","SupportedClouds=^$|${{ parameters.CloudConfig.Cloud }}"
+              -Filters $filters
           name: generate_container_job_matrix_${{ config.Name }}
           displayName: Generate Container Job Matrix
 
