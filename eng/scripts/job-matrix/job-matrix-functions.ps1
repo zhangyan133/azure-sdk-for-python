@@ -3,6 +3,7 @@ Set-StrictMode -Version "4.0"
 class MatrixConfig {
     [PSCustomObject]$displayNames
     [Hashtable]$displayNamesLookup
+    [PSCustomObject]$import
     [PSCustomObject]$matrix
     [System.Collections.Specialized.OrderedDictionary]$orderedMatrix
     [Array]$include
@@ -342,6 +343,7 @@ function GenerateFullMatrix(
         return @()
     }
 
+    $parameters, $_ = ProcessAllOf $parameters $false
     $parameterArray = $parameters.GetEnumerator() | ForEach-Object { $_ }
 
     $matrix = [System.Collections.ArrayList]::new()
