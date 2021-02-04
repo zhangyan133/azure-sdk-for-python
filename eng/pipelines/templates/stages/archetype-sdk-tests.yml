@@ -118,7 +118,7 @@ stages:
               BuildTargetingString: ${{ parameters.BuildTargetingString }}
               TestMarkArgument: ${{ parameters.TestMarkArgument }}
               InjectedPackages: ${{ parameters.InjectedPackages }}
-              BuildDoca: ${{ parameters.BuildDocs }}
+              BuildDocs: ${{ parameters.BuildDocs }}
               AllocateResourceGroup: ${{ parameters.AllocateResourceGroup }}
               DeployArmTemplate: ${{ parameters.DeployArmTemplate }}
               TestTimeoutInMinutes: ${{ parameters.TestTimeoutInMinutes }}
