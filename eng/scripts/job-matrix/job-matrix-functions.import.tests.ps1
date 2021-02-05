@@ -18,13 +18,14 @@ Describe "Platform Matrix nonSparse" -Tag "nonsparse" {
         $config = GetMatrixConfigFromJson $matrixJson
     }
 
-    It "Should process full matrix with nonSparse" {
-        $parameters, $_ = ProcessNonSparseParameters $config.orderedMatrix "testField1","testField3"
-        $parameters.Count | Should -Be 3
-        $parameters["testField3"] | Should -Be 1,2,3,4
-    }
+    It "Should process nonSparse parameters" {
+        $parameters, $nonSparse = ProcessNonSparseParameters $config.orderedMatrix "testField1","testField3"
+        $parameters.Count | Should -Be 1
+        $parameters["testField2"] | Should -Be 1,2,3
+        $nonSparse.Count | Should -Be 2
+        $nonSparse["testField1"] | Should -Be 1,2
+        $nonSparse["testField3"] | Should -Be 1,2,3,4
 
-    It "Should process sparse matrix with nonSparse" {
         $parameters, $nonSparse = ProcessNonSparseParameters $config.orderedMatrix "testField3"
         $parameters.Count | Should -Be 2
         $parameters.Contains("testField3") | Should -Be $false
@@ -32,12 +33,12 @@ Describe "Platform Matrix nonSparse" -Tag "nonsparse" {
         $nonSparse["testField3"] | Should -Be 1,2,3,4
     }
 
-    It "Should combine full matrix with nonSparse" {
+    It "Should ignore nonSparse with all selection" {
         $matrix = GenerateMatrix $config "all" -nonSparseParameters "testField3"
         $matrix.Length | Should -Be 24
     }
 
-    It "Should combine sparse matrix with nonSparse" {
+    It -tag b "Should combine sparse matrix with nonSparse parameters" {
         $matrix = GenerateMatrix $config "sparse" -nonSparseParameters "testField3"
         $matrix.Length | Should -Be 12
     }
@@ -64,7 +65,7 @@ Describe "Platform Matrix nonSparse" -Tag "nonsparse" {
 }
 
 Describe "Platform Matrix Import" -Tag "import" {
-    It "Should generate an allOf matrix with an imported sparse matrix" {
+    It "Should generate a matrix with nonSparseParameters and an imported sparse matrix" {
         $matrixJson = @'
 {
     "import": {
@@ -72,14 +73,12 @@ Describe "Platform Matrix Import" -Tag "import" {
         "combineWith": "matrix"
     },
     "matrix": {
-        "$allOf": {
-            "testField": [ "test1", "test2" ]
-        }
+        "testField": [ "test1", "test2" ]
     }
 }
 '@
         $importConfig = GetMatrixConfigFromJson $matrixJson
-        $matrix = GenerateMatrix $importConfig "sparse"
+        $matrix = GenerateMatrix $importConfig "sparse" -nonSparseParameters "testField"
 
         $matrix.Length | Should -Be 6
 
