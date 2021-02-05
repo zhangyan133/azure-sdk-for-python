@@ -343,7 +343,6 @@ function GenerateFullMatrix(
         return @()
     }
 
-    $parameters, $_ = ProcessAllOf $parameters $false
     $parameterArray = $parameters.GetEnumerator() | ForEach-Object { $_ }
 
     $matrix = [System.Collections.ArrayList]::new()

@@ -4,65 +4,61 @@ BeforeAll {
     . ./job-matrix-functions.ps1
 }
 
-Describe "Platform Matrix allOf" -Tag "allof" {
+Describe "Platform Matrix nonSparse" -Tag "nonsparse" {
     BeforeEach {
         $matrixJson = @'
 {
     "matrix": {
         "testField1": [ 1, 2 ],
         "testField2": [ 1, 2, 3 ],
-        "$allOf": {
-            "testField3": [ 1, 2, 3, 4 ],
-        }
+        "testField3": [ 1, 2, 3, 4 ],
     }
 }
 '@
         $config = GetMatrixConfigFromJson $matrixJson
     }
 
-    It "Should process full matrix with allOf" {
-        $parameters, $_ = ProcessAllOf $config.orderedMatrix $false
+    It "Should process full matrix with nonSparse" {
+        $parameters, $_ = ProcessNonSparseParameters $config.orderedMatrix "testField1","testField3"
         $parameters.Count | Should -Be 3
         $parameters["testField3"] | Should -Be 1,2,3,4
     }
 
-    It "Should process sparse matrix with allOf" {
-        $parameters, $allOf = ProcessAllOf $config.orderedMatrix $true
+    It "Should process sparse matrix with nonSparse" {
+        $parameters, $nonSparse = ProcessNonSparseParameters $config.orderedMatrix "testField3"
         $parameters.Count | Should -Be 2
         $parameters.Contains("testField3") | Should -Be $false
-        $allOf.Count | Should -Be 1
-        $allOf["testField3"] | Should -Be 1,2,3,4
+        $nonSparse.Count | Should -Be 1
+        $nonSparse["testField3"] | Should -Be 1,2,3,4
     }
 
-    It "Should combine full matrix with allOf" {
-        $matrix = GenerateMatrix $config "all"
+    It "Should combine full matrix with nonSparse" {
+        $matrix = GenerateMatrix $config "all" -nonSparseParameters "testField3"
         $matrix.Length | Should -Be 24
     }
 
-    It "Should combine sparse matrix with allOf" {
-        $matrix = GenerateMatrix $config "sparse"
+    It "Should combine sparse matrix with nonSparse" {
+        $matrix = GenerateMatrix $config "sparse" -nonSparseParameters "testField3"
         $matrix.Length | Should -Be 12
     }
 
-    It "Should combine with multiple allOf fields" {
+    It "Should combine with multiple nonSparse fields" {
         $matrixJson = @'
 {
     "matrix": {
         "testField1": [ 1, 2 ],
         "testField2": [ 1, 2 ],
-        "$allOf": {
-            "testField3": [ 31, 32 ],
-            "testField4": [ 41, 42 ]
-        }
+        "testField3": [ 31, 32 ],
+        "testField4": [ 41, 42 ]
     }
 }
 '@
         $config = GetMatrixConfigFromJson $matrixJson
 
-        $matrix = GenerateMatrix $config "all"
+        $matrix = GenerateMatrix $config "all" -nonSparseParameters "testField3","testField4"
         $matrix.Length | Should -Be 16
 
-        $matrix = GenerateMatrix $config "sparse"
+        $matrix = GenerateMatrix $config "sparse" -nonSparseParameters "testField3","testField4"
         $matrix.Length | Should -Be 8
     }
 }
