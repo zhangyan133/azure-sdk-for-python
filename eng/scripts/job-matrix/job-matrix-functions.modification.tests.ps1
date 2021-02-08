@@ -186,7 +186,6 @@ Describe "Platform Matrix Import" -Tag "import" {
         $importConfig = GetMatrixConfigFromJson $matrixJson
         $matrix = GenerateMatrix $importConfig "sparse"
 
-        write-host ($matrix | convertto-json)
         $matrix.Length | Should -Be 7
     }
 }
