@@ -78,7 +78,7 @@ jobs:
       - name: ArmTemplateParameters
         value: '@{}'
       - name: BuildTargetingStringValue
-        value: $[ coalesce(variables.BuildTargetingString, ${{ parameters.BuildTargetingString }}) ]
+        value: $[ coalesce(variables.BuildTargetingString, "${{ parameters.BuildTargetingString }}") ]
 
     timeoutInMinutes: ${{ parameters.TestTimeoutInMinutes }}
     continueOnError: false
