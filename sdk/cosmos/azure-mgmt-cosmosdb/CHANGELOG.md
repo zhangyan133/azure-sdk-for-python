@@ -1,5 +1,74 @@
 # Release History
 
+## 1.0.0 (2021-03-01)
+
+**Features**
+
+  - Model TableCreateUpdateParameters has a new parameter identity
+  - Model MongoDBDatabaseGetResults has a new parameter identity
+  - Model GremlinDatabaseGetResults has a new parameter identity
+  - Model ThroughputSettingsGetResults has a new parameter identity
+  - Model DatabaseAccountUpdateParameters has a new parameter network_acl_bypass
+  - Model DatabaseAccountUpdateParameters has a new parameter identity
+  - Model DatabaseAccountUpdateParameters has a new parameter network_acl_bypass_resource_ids
+  - Model DatabaseAccountUpdateParameters has a new parameter backup_policy
+  - Model ARMResourceProperties has a new parameter identity
+  - Model GremlinDatabaseCreateUpdateParameters has a new parameter identity
+  - Model SqlContainerGetResults has a new parameter identity
+  - Model SqlDatabaseCreateUpdateParameters has a new parameter identity
+  - Model MongoDBCollectionGetResults has a new parameter identity
+  - Model GremlinGraphGetResults has a new parameter identity
+  - Model SqlUserDefinedFunctionCreateUpdateParameters has a new parameter identity
+  - Model SqlUserDefinedFunctionGetResults has a new parameter identity
+  - Model SqlStoredProcedureGetResults has a new parameter identity
+  - Model TableGetResults has a new parameter identity
+  - Model SqlStoredProcedureCreateUpdateParameters has a new parameter identity
+  - Model MongoDBCollectionCreateUpdateParameters has a new parameter identity
+  - Model GremlinGraphCreateUpdateParameters has a new parameter identity
+  - Model DatabaseAccountGetResults has a new parameter instance_id
+  - Model DatabaseAccountGetResults has a new parameter restore_parameters
+  - Model DatabaseAccountGetResults has a new parameter identity
+  - Model DatabaseAccountGetResults has a new parameter network_acl_bypass
+  - Model DatabaseAccountGetResults has a new parameter network_acl_bypass_resource_ids
+  - Model DatabaseAccountGetResults has a new parameter system_data
+  - Model DatabaseAccountGetResults has a new parameter backup_policy
+  - Model DatabaseAccountGetResults has a new parameter create_mode
+  - Model ContainerPartitionKey has a new parameter system_key
+  - Model CassandraKeyspaceCreateUpdateParameters has a new parameter identity
+  - Model PrivateEndpointConnection has a new parameter group_id
+  - Model PrivateEndpointConnection has a new parameter provisioning_state
+  - Model SqlContainerCreateUpdateParameters has a new parameter identity
+  - Model PrivateLinkServiceConnectionStateProperty has a new parameter description
+  - Model CassandraTableCreateUpdateParameters has a new parameter identity
+  - Model CassandraTableGetResults has a new parameter identity
+  - Model ThroughputSettingsUpdateParameters has a new parameter identity
+  - Model SqlTriggerGetResults has a new parameter identity
+  - Model SqlTriggerCreateUpdateParameters has a new parameter identity
+  - Model SqlDatabaseGetResults has a new parameter identity
+  - Model MongoDBDatabaseCreateUpdateParameters has a new parameter identity
+  - Model CassandraKeyspaceGetResults has a new parameter identity
+  - Added operation SqlResourcesOperations.begin_delete_sql_role_definition
+  - Added operation SqlResourcesOperations.get_sql_role_definition
+  - Added operation SqlResourcesOperations.list_sql_role_assignments
+  - Added operation SqlResourcesOperations.begin_create_update_sql_role_definition
+  - Added operation SqlResourcesOperations.list_sql_role_definitions
+  - Added operation SqlResourcesOperations.get_sql_role_assignment
+  - Added operation SqlResourcesOperations.begin_create_update_sql_role_assignment
+  - Added operation SqlResourcesOperations.begin_delete_sql_role_assignment
+  - Added operation group RestorableSqlDatabasesOperations
+  - Added operation group RestorableSqlResourcesOperations
+  - Added operation group RestorableSqlContainersOperations
+  - Added operation group RestorableMongodbResourcesOperations
+  - Added operation group CassandraClustersOperations
+  - Added operation group CassandraDataCentersOperations
+  - Added operation group RestorableDatabaseAccountsOperations
+  - Added operation group RestorableMongodbCollectionsOperations
+  - Added operation group RestorableMongodbDatabasesOperations
+
+**Breaking changes**
+
+  - Model DatabaseAccountCreateUpdateParameters has a new signature
+
 ## 6.0.0 (2020-11-24)
 
 ## 6.0.0b1 (2020-10-12)
